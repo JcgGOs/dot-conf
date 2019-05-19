@@ -2,7 +2,7 @@ DIR=$(realpath .)
 echo "install path:$DIR"
 install_ohmyzsh(){
 	echo "install zsh"
-	mv ~/.oh-my-zsh/custom ~/.oh-my-zsh/custom_$(date '+%Y%m%d') 2>&1 >/dev/null
+    backup ~/.oh-my-zsh/custom
 	ln -s $DIR/oh-my-zsh/ ~/.oh-my-zsh/custom
 }
 
