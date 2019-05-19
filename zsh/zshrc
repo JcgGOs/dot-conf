@@ -51,7 +51,18 @@ ZSH_THEME="tao"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git autojump cp battery history history-substring-search tmux sudo zsh-autosuggestions zsh-syntax-highlighting zsh-interactive-cd )
+plugins=(
+        git 
+        autojump 
+        cp 
+        battery 
+        history 
+        history-substring-search 
+        tmux 
+        sudo 
+        zsh-autosuggestions 
+        zsh-syntax-highlighting 
+        )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -86,7 +97,7 @@ source $ZSH/oh-my-zsh.sh
 
 alias rm="trash"
 #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home
 export PATH="/usr/local/sbin:$PATH"
 
 #export NVM_DIR="$HOME/.nvm"
