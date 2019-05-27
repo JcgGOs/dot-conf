@@ -12,4 +12,4 @@
 	url = https://github.com/changyuheng/zsh-interactive-cd
 [submodule "vim"]
 	path = vim
-	url = git@github.com:tantao700/vim-vide.git
+	url = https://github.com/tantao700/vim-vide.git
