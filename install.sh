@@ -23,7 +23,11 @@ install_vim(){
     backup ~/.vim
 	ln -s $DIR/vim ~/.vim
 }
-
+install_autojump(){
+	echo "install jump"
+    backup ~/.autojump
+	ln -s $DIR/autojump ~/.autojump
+}
 backup(){
     # soft link
     if [ -h "$1" ]; then
@@ -45,3 +49,4 @@ fi
 install_zshrc
 install_tmux
 install_vim
+install_autojump
