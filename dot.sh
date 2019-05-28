@@ -8,9 +8,8 @@ all_components=(
     zshrc
     vim
 )
-
 install(){
-    case $1 in
+    case $1 in 
         all)
             for comp in $all_components; do
                 install $comp
@@ -20,6 +19,55 @@ install(){
             if [ -d "~/.oh-my-zsh" ]; then
                 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
             fi
+            ;;
+        tmux)
+           get $1 
+            ;;
+        *)
+            echo "install soft:$1"
+            ;;
+    esac
+
+}
+
+get(){
+    NAME=$(uname)
+    case $NAME in 
+        Darwin)
+            brew install $1
+            ;;
+        Linux)
+            NAME=$(lsb_release -i -s)
+            case $NAME in
+                CentOS)
+                    yum install $1
+                    ;;
+                Ubuntu)
+                    apt install $1
+                    ;;
+                Debian)
+                    apt install $1
+                    ;;
+                *)
+                    echo "OS:$name"
+                    ;;
+            esac
+            ;;
+        *)
+            echo "get software:$1"
+            ;;
+    esac
+}
+
+link(){
+    case $1 in
+        all)
+            for comp in $all_components; do
+                link $comp
+            done
+            ;;
+        ohmyzsh)
+            install $1
             backup ~/.oh-my-zsh/custom
             ln -s $DIR/oh-my-zsh/ ~/.oh-my-zsh/custom
             ;;
@@ -80,8 +128,8 @@ help(){
 }
 echo "$1 $2"
 case $1 in 
-    install)
-        install $2
+    link)
+        link $2
         ;;
     clean)
         clean $2
