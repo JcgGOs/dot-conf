@@ -7,7 +7,6 @@ all_components=(
     tmux
     zshrc
     vim
-    autojump
 )
 
 install(){
@@ -76,8 +75,8 @@ backup(){
 }
 
 help(){
-    echo "./install.sh install all"    
-    echo "./install.sh install vim"    
+    echo "./ctl.sh install all"    
+    echo "./ctl.sh install vim"    
 }
 echo "$1 $2"
 case $1 in 
