@@ -131,6 +131,9 @@ case $1 in
     link)
         link $2
         ;;
+     get)
+        get $2
+        ;;
     clean)
         clean $2
         ;;
