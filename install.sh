@@ -1,33 +1,68 @@
 DIR=$(realpath .)
-echo "install path:$DIR"
-install_ohmyzsh(){
-	echo "install zsh"
-    backup ~/.oh-my-zsh/custom
-	ln -s $DIR/oh-my-zsh/ ~/.oh-my-zsh/custom
+echo " DIR:$DIR"
+
+declare -a all_components
+all_components=(
+    ohmyzsh
+    tmux
+    zshrc
+    vim
+    autojump
+)
+
+install(){
+    case $1 in
+        all)
+            for comp in $all_components; do
+                install $comp
+            done
+            ;;
+        ohmyzsh)
+            if [ -d "~/.oh-my-zsh" ]; then
+                sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+            fi
+            backup ~/.oh-my-zsh/custom
+            ln -s $DIR/oh-my-zsh/ ~/.oh-my-zsh/custom
+            ;;
+        tmux)
+            backup ~/.tmux.conf
+            ln -s $DIR/tmux/tmux.conf ~/tmux.conf
+            ;;
+        zshrc)
+            backup ~/.zshrc
+            ln -s $DIR/zsh/zshrc ~/.zshrc
+            ;;
+        *)
+            echo "backup ~/.$1"
+            backup ~/.$1
+            echo "ln -s $DIR/$1 ~/.$1"
+            ln -s $DIR/$1 ~/.$1
+            ;;
+    esac
 }
 
-install_tmux(){
-	echo "install tmux"
-    backup ~/.tmux.conf
-	ln -s $DIR/tmux/tmux.conf ~/.tmux.conf
+clean(){
+    case $1 in
+        all)
+            for comp in $all_components; do
+                clean $comp
+            done
+            ;;
+        ohmyzsh)
+            rm -rf ~/.oh-my-zsh
+            ;;
+        tmux)
+            rm -rf ~/.tmux.conf
+            ;;
+        zshrc)
+            rm -rf  ~/.zshrc
+            ;;
+        *)
+            rm -rf ~/.$1
+            ;;
+    esac
 }
 
-install_zshrc(){
-	echo "install zshrc"
-    backup ~/.zshrc
-	ln -s $DIR/zsh/zshrc ~/.zshrc
-}
-
-install_vim(){
-	echo "install vim"
-    backup ~/.vim
-	ln -s $DIR/vim ~/.vim
-}
-install_autojump(){
-	echo "install jump"
-    backup ~/.autojump
-	ln -s $DIR/autojump ~/.autojump
-}
 backup(){
     # soft link
     if [ -h "$1" ]; then
@@ -40,13 +75,19 @@ backup(){
     fi
 }
 
-if [ -d "~/.oh-my-zsh" ]; then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	install_ohmyzsh
-	else
-	install_ohmyzsh		
-fi
-install_zshrc
-install_tmux
-install_vim
-install_autojump
+help(){
+    echo "./install.sh install all"    
+    echo "./install.sh install vim"    
+}
+echo "$1 $2"
+case $1 in 
+    install)
+        install $2
+        ;;
+    clean)
+        clean $2
+        ;;
+    *)
+        help
+        ;;
+esac
